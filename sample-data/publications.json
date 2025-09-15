@@ -1,0 +1,36 @@
+[
+  {
+    "id": "1",
+    "title": "Enhancing Line Chatbot Experiences: Utilizing Thai Question-Answering Systems to Enrich Dialogue with Unpredictable Questions",
+    "abstract": "การพัฒนาระบบตอบคำถามภาษาไทยสำหรับ Line Chatbot เพื่อเพิ่มประสิทธิภาพในการสนทนา โดยใช้เทคโนโลยี Natural Language Processing และ Machine Learning",
+    "authors": ["อ.ดร.วรเชษฐ์ อุกรา", "นายสมชาย ใจดี"],
+    "journal": "วารสาร Interdisciplinary Research Review",
+    "publication_date": "2024-05-23",
+    "keywords": "Chatbot, Thai Language, NLP, Machine Learning",
+    "category": "Computer Science"
+  },
+  {
+    "id": "2",
+    "title": "Design Patterns to Enhance Security by Storing Passwords Encryption using Multiple Hashing Functions",
+    "abstract": "การออกแบบรูปแบบการเข้ารหัสรหัสผ่านด้วยฟังก์ชันแฮชหลายชั้นเพื่อเพิ่มความปลอดภัย",
+    "authors": [
+      "นายลิขิต อรรฆสมิทธิ์",
+      "นายสมเกียรติ ช่วยเหลือ",
+      "ดร.วรเชษฐ์ อุกรา"
+    ],
+    "journal": "KKU Science Journal",
+    "publication_date": "2024-05-23",
+    "keywords": "Security, Encryption, Hashing, Password Protection",
+    "category": "Information Security"
+  },
+  {
+    "id": "3",
+    "title": "Implementation of Blockchain Technology in Educational Certificate Verification",
+    "abstract": "การประยุกต์ใช้เทคโนโลยี Blockchain ในการตรวจสอบประกาศนียบัตรทางการศึกษา",
+    "authors": ["ผศ.ดร.อุมนิษฐ์ ภักดีตระกูลวงศ์", "นางสาวสุดา เก่งเรียน"],
+    "journal": "Thai Journal of Computer Science",
+    "publication_date": "2024-03-15",
+    "keywords": "Blockchain, Education, Certificate Verification, Smart Contracts",
+    "category": "Blockchain Technology"
+  }
+]

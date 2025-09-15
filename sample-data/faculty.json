@@ -1,0 +1,47 @@
+[
+  {
+    "id": "1",
+    "name_thai": "ผศ.ดร.อุมนิษฐ์ ภักดีตระกูลวงศ์",
+    "name_english": "Assoc. Prof. Dr. Umnit Pakdeetrakoolwong",
+    "position": "Associate Professor",
+    "image_url": "/placeholder.svg?height=200&width=200",
+    "bio": "ผู้เชี่ยวชาญด้านวิศวกรรมซอฟต์แวร์และการพัฒนาระบบ",
+    "email": "umnit@university.ac.th"
+  },
+  {
+    "id": "2",
+    "name_thai": "ผศ.ดร. วรเชษฐ์ อุกรา",
+    "name_english": "Assoc. Prof. Dr. Worachet Ukara",
+    "position": "Associate Professor",
+    "image_url": "/placeholder.svg?height=200&width=200",
+    "bio": "ผู้เชี่ยวชาญด้าน AI และ Machine Learning",
+    "email": "worachet@university.ac.th"
+  },
+  {
+    "id": "3",
+    "name_thai": "ผศ.บุญผล สุวรรณวิจิตร",
+    "name_english": "Assoc. Prof. Boonpon Suwannavijit",
+    "position": "Associate Professor",
+    "image_url": "/placeholder.svg?height=200&width=200",
+    "bio": "ผู้เชี่ยวชาญด้านเครือข่ายและความปลอดภัยข้อมูล",
+    "email": "boonpon@university.ac.th"
+  },
+  {
+    "id": "4",
+    "name_thai": "ผศ.สมเกียรติ ช่วยเหลือ",
+    "name_english": "Assoc. Prof. Somkiat Chuayluea",
+    "position": "Associate Professor",
+    "image_url": "/placeholder.svg?height=200&width=200",
+    "bio": "ผู้เชี่ยวชาญด้านการพัฒนาเว็บแอปพลิเคชัน",
+    "email": "somkiat@university.ac.th"
+  },
+  {
+    "id": "5",
+    "name_thai": "อาจารย์ ดร.สุพิชญา จันทร์เรือง",
+    "name_english": "Dr. Supichaya Chanruang",
+    "position": "Lecturer",
+    "image_url": "/placeholder.svg?height=200&width=200",
+    "bio": "ผู้เชี่ยวชาญด้านการวิเคราะห์ข้อมูลและ Data Science",
+    "email": "supichaya@university.ac.th"
+  }
+]

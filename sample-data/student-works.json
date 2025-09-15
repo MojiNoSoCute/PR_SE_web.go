@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "title": "ระบบจัดการห้องสมุดอัจฉริยะ",
+    "description": "ระบบจัดการห้องสมุดที่ใช้เทคโนโลยี AI ในการแนะนำหนังสือและจัดการทรัพยากร พัฒนาด้วย React และ Node.js",
+    "image_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=400&fit=crop",
+    "category": "โครงงาน",
+    "keywords": "AI, Library Management, React, Node.js",
+    "read_time": 5
+  },
+  {
+    "id": "2",
+    "title": "แอปพลิเคชันเรียนรู้ภาษาไทยสำหรับชาวต่างชาติ",
+    "description": "แอปมือถือสำหรับการเรียนรู้ภาษาไทยพื้นฐาน ประกอบด้วยการออกเสียง บทสนทนา และเกมการเรียนรู้",
+    "image_url": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&fit=crop",
+    "category": "นักศึกษาดีเด่น",
+    "keywords": "Mobile App, Thai Language, Flutter, Education",
+    "read_time": 4
+  },
+  {
+    "id": "3",
+    "title": "ระบบตรวจสอบคุณภาพผลิตภัณฑ์ด้วย Computer Vision",
+    "description": "ระบบใช้เทคโนโลยี Computer Vision ในการตรวจสอบคุณภาพสินค้าในโรงงานอุตสาหกรรม",
+    "image_url": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=400&fit=crop",
+    "category": "งานวิจัย",
+    "keywords": "Computer Vision, Quality Control, Python, OpenCV",
+    "read_time": 6
+  },
+  {
+    "id": "4",
+    "title": "เว็บแอปพลิเคชันจัดการร้านอาหาร",
+    "description": "ระบบจัดการร้านอาหารออนไลน์ครบวงจร รองรับการสั่งอาหาร การชำระเงิน และการจัดส่ง",
+    "image_url": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=400&fit=crop",
+    "category": "โครงงาน",
+    "keywords": "Web Application, E-commerce, Next.js, PostgreSQL",
+    "read_time": 4
+  }
+]
