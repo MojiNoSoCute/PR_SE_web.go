@@ -49,7 +49,8 @@ const sampleData = {
       image_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=400&fit=crop',
       category: 'โครงงาน',
       keywords: 'AI, Library Management, React, Node.js',
-      read_time: 5
+      read_time: 5,
+      created_at: '2024-08-15T10:30:00Z'
     },
     {
       id: '2',
@@ -58,7 +59,8 @@ const sampleData = {
       image_url: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&fit=crop',
       category: 'นักศึกษาดีเด่น',
       keywords: 'Mobile App, Thai Language, Flutter, Education',
-      read_time: 4
+      read_time: 4,
+      created_at: '2024-08-10T14:20:00Z'
     },
     {
       id: '3',
@@ -67,7 +69,8 @@ const sampleData = {
       image_url: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=400&fit=crop',
       category: 'งานวิจัย',
       keywords: 'Computer Vision, Quality Control, Python, OpenCV',
-      read_time: 6
+      read_time: 6,
+      created_at: '2024-08-05T09:15:00Z'
     }
   ],
 
@@ -80,7 +83,8 @@ const sampleData = {
       journal: 'วารสาร Interdisciplinary Research Review',
       publication_date: '2024-05-23',
       keywords: 'Chatbot, Thai Language, NLP',
-      category: 'Computer Science'
+      category: 'Computer Science',
+      created_at: '2024-05-23T10:00:00Z'
     },
     {
       id: '2',
@@ -90,7 +94,8 @@ const sampleData = {
       journal: 'KKU Science Journal',
       publication_date: '2024-05-23',
       keywords: 'Security, Encryption, Hashing',
-      category: 'Information Security'
+      category: 'Information Security',
+      created_at: '2024-05-23T14:30:00Z'
     }
   ],
 

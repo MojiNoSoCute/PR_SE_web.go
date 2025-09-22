@@ -21,18 +21,28 @@ export default function AdminLoginPage() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
-    const supabase = createClient()
     setIsLoading(true)
     setError(null)
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
-      if (error) throw error
-      router.push("/admin")
+      // Development mode login - check for default credentials
+      const ADMIN_EMAIL = "admin@university.ac.th"
+      const ADMIN_PASSWORD = "Admin123!"
+      
+      console.log('Login attempt:', { email, password })
+      console.log('Expected:', { ADMIN_EMAIL, ADMIN_PASSWORD })
+      
+      if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        // Store a simple auth state in localStorage for development
+        localStorage.setItem('admin_authenticated', 'true')
+        localStorage.setItem('admin_email', email)
+        console.log('Login successful, redirecting to /admin')
+        router.push("/admin")
+      } else {
+        throw new Error("ข้อมูลผู้ใช้หรือรหัสผ่านไม่ถูกต้อง")
+      }
     } catch (error: unknown) {
+      console.error('Login error:', error)
       setError(error instanceof Error ? error.message : "เกิดข้อผิดพลาดในการเข้าสู่ระบบ")
     } finally {
       setIsLoading(false)
@@ -81,6 +91,11 @@ export default function AdminLoginPage() {
               <Button type="submit" className="w-full bg-red-600 hover:bg-red-700" disabled={isLoading}>
                 {isLoading ? "กำลังเข้าสู่ระบบ..." : "เข้าสู่ระบบ"}
               </Button>
+              <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm">
+                <p className="font-semibold text-blue-900 mb-1">ข้อมูลการเข้าสู่ระบบสำหรับการพัฒนา:</p>
+                <p className="text-blue-700">อีเมล: admin@university.ac.th</p>
+                <p className="text-blue-700">รหัสผ่าน: Admin123!</p>
+              </div>
             </form>
           </CardContent>
         </Card>

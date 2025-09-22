@@ -15,8 +15,9 @@ export function AdminSidebar({ user, activeTab, setActiveTab }: AdminSidebarProp
   const router = useRouter()
 
   const handleLogout = async () => {
-    const supabase = createClient()
-    await supabase.auth.signOut()
+    // Development logout - clear localStorage
+    localStorage.removeItem('admin_authenticated')
+    localStorage.removeItem('admin_email')
     router.push("/admin/login")
   }
 

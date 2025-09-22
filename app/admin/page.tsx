@@ -1,49 +1,105 @@
-import { redirect } from "next/navigation"
-import { createClient } from "@/lib/supabase/server"
+"use client"
+
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import { AdminDashboard } from "@/components/admin/admin-dashboard"
+import { dataProvider } from "@/lib/data-provider"
 
-export default async function AdminPage() {
-  const supabase = await createClient()
+export default function AdminPage() {
+  const router = useRouter()
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [stats, setStats] = useState({
+    studentWorks: 0,
+    faculty: 0,
+    publications: 0,
+    announcements: 0
+  })
+  const [recentStudentWorks, setRecentStudentWorks] = useState<any[]>([])
+  const [recentPublications, setRecentPublications] = useState<any[]>([])
 
-  const { data, error } = await supabase.auth.getUser()
-  if (error || !data?.user) {
-    redirect("/admin/login")
+  useEffect(() => {
+    // Check if user is authenticated in development mode
+    const authenticated = localStorage.getItem('admin_authenticated')
+    const adminEmail = localStorage.getItem('admin_email')
+    
+    if (!authenticated || !adminEmail) {
+      router.push("/admin/login")
+      return
+    }
+
+    setIsAuthenticated(true)
+    
+    // Load mock data for dashboard
+    const loadDashboardData = async () => {
+      try {
+        // Check for updates in localStorage before loading
+        const stored = localStorage.getItem('student_works')
+        const studentWorks = stored ? JSON.parse(stored) : await dataProvider.getStudentWorks()
+        
+        const [faculty, publications, announcements] = await Promise.all([
+          dataProvider.getFaculty(),
+          dataProvider.getPublications(),
+          dataProvider.getAnnouncements()
+        ])
+
+        setStats({
+          studentWorks: studentWorks.length,
+          faculty: faculty.length,
+          publications: publications.length,
+          announcements: announcements.length
+        })
+
+        setRecentStudentWorks(studentWorks.slice(0, 5))
+        setRecentPublications(publications.slice(0, 5))
+        
+        // Debug logging
+        console.log('Dashboard data loaded:', {
+          stats: {
+            studentWorks: studentWorks.length,
+            faculty: faculty.length,
+            publications: publications.length,
+            announcements: announcements.length
+          },
+          recentStudentWorks: studentWorks.slice(0, 5),
+          recentPublications: publications.slice(0, 5)
+        })
+      } catch (error) {
+        console.error('Error loading dashboard data:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadDashboardData()
+  }, [router])
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
+          <p>กำลังโหลด...</p>
+        </div>
+      </div>
+    )
   }
 
-  // Get dashboard statistics
-  const [studentWorksResult, facultyResult, publicationsResult, announcementsResult] = await Promise.all([
-    supabase.from("student_works").select("id", { count: "exact" }),
-    supabase.from("faculty").select("id", { count: "exact" }),
-    supabase.from("publications").select("id", { count: "exact" }),
-    supabase.from("announcements").select("id", { count: "exact" }),
-  ])
-
-  const stats = {
-    studentWorks: studentWorksResult.count || 0,
-    faculty: facultyResult.count || 0,
-    publications: publicationsResult.count || 0,
-    announcements: announcementsResult.count || 0,
+  if (!isAuthenticated) {
+    return null // Will redirect to login
   }
 
-  // Get recent content
-  const { data: recentStudentWorks } = await supabase
-    .from("student_works")
-    .select("*")
-    .order("created_at", { ascending: false })
-    .limit(5)
-
-  const { data: recentPublications } = await supabase
-    .from("publications")
-    .select("*")
-    .order("created_at", { ascending: false })
-    .limit(5)
+  const mockUser = {
+    email: localStorage.getItem('admin_email') || 'admin@university.ac.th',
+    id: 'dev-admin-id'
+  }
 
   return (
     <AdminDashboard
-      user={data.user}
+      user={mockUser}
       stats={stats}
-      recentStudentWorks={recentStudentWorks || []}
-      recentPublications={recentPublications || []}
+      recentStudentWorks={recentStudentWorks}
+      recentPublications={recentPublications}
     />
   )
 }

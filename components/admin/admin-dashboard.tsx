@@ -28,6 +28,14 @@ interface AdminDashboardProps {
 export function AdminDashboard({ user, stats, recentStudentWorks, recentPublications }: AdminDashboardProps) {
   const [activeTab, setActiveTab] = useState("overview")
 
+  // Debug logging
+  console.log('AdminDashboard received props:', {
+    user,
+    stats,
+    recentStudentWorks,
+    recentPublications
+  })
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="flex">
@@ -44,175 +52,194 @@ export function AdminDashboard({ user, stats, recentStudentWorks, recentPublicat
               <TabsContent value="overview">
                 {/* Statistics Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                  <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">ผลงานนักศึกษา</CardTitle>
-                      <FileText className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
+                  <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <h3 className="text-sm font-medium">ผลงานนักศึกษา</h3>
+                      <FileText className="h-4 w-4 text-gray-400" />
+                    </div>
+                    <div className="pt-2">
                       <div className="text-2xl font-bold">{stats.studentWorks}</div>
-                      <p className="text-xs text-muted-foreground">รายการทั้งหมด</p>
-                    </CardContent>
-                  </Card>
+                      <p className="text-xs text-gray-600">รายการทั้งหมด</p>
+                    </div>
+                  </div>
 
-                  <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">อาจารย์</CardTitle>
-                      <Users className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
+                  <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <h3 className="text-sm font-medium">อาจารย์</h3>
+                      <Users className="h-4 w-4 text-gray-400" />
+                    </div>
+                    <div className="pt-2">
                       <div className="text-2xl font-bold">{stats.faculty}</div>
-                      <p className="text-xs text-muted-foreground">คนทั้งหมด</p>
-                    </CardContent>
-                  </Card>
+                      <p className="text-xs text-gray-600">คนทั้งหมด</p>
+                    </div>
+                  </div>
 
-                  <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">ผลงานวิจัย</CardTitle>
-                      <BookOpen className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
+                  <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <h3 className="text-sm font-medium">ผลงานวิจัย</h3>
+                      <BookOpen className="h-4 w-4 text-gray-400" />
+                    </div>
+                    <div className="pt-2">
                       <div className="text-2xl font-bold">{stats.publications}</div>
-                      <p className="text-xs text-muted-foreground">บทความทั้งหมด</p>
-                    </CardContent>
-                  </Card>
+                      <p className="text-xs text-gray-600">บทความทั้งหมด</p>
+                    </div>
+                  </div>
 
-                  <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">ประกาศ</CardTitle>
-                      <Megaphone className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
+                  <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <h3 className="text-sm font-medium">ประกาศ</h3>
+                      <Megaphone className="h-4 w-4 text-gray-400" />
+                    </div>
+                    <div className="pt-2">
                       <div className="text-2xl font-bold">{stats.announcements}</div>
-                      <p className="text-xs text-muted-foreground">รายการทั้งหมด</p>
-                    </CardContent>
-                  </Card>
+                      <p className="text-xs text-gray-600">รายการทั้งหมด</p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Quick Actions */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
+                  <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <div className="mb-4">
+                      <h3 className="flex items-center gap-2 text-lg font-semibold">
                         <Plus className="h-5 w-5" />
                         เพิ่มเนื้อหาใหม่
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-3">
-                      <Button
+                      </h3>
+                    </div>
+                    <div className="space-y-3">
+                      <button
                         onClick={() => setActiveTab("student-works")}
-                        variant="outline"
-                        className="w-full justify-start"
+                        className="w-full flex items-center justify-start p-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                       >
                         <FileText className="h-4 w-4 mr-2" />
                         เพิ่มผลงานนักศึกษา
-                      </Button>
-                      <Button
+                      </button>
+                      <button
                         onClick={() => setActiveTab("faculty")}
-                        variant="outline"
-                        className="w-full justify-start"
+                        className="w-full flex items-center justify-start p-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                       >
                         <Users className="h-4 w-4 mr-2" />
                         เพิ่มข้อมูลอาจารย์
-                      </Button>
-                      <Button
+                      </button>
+                      <button
                         onClick={() => setActiveTab("publications")}
-                        variant="outline"
-                        className="w-full justify-start"
+                        className="w-full flex items-center justify-start p-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                       >
                         <BookOpen className="h-4 w-4 mr-2" />
                         เพิ่มผลงานวิจัย
-                      </Button>
-                      <Button
+                      </button>
+                      <button
                         onClick={() => setActiveTab("announcements")}
-                        variant="outline"
-                        className="w-full justify-start"
+                        className="w-full flex items-center justify-start p-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                       >
                         <Megaphone className="h-4 w-4 mr-2" />
                         เพิ่มประกาศ
-                      </Button>
-                    </CardContent>
-                  </Card>
+                      </button>
+                    </div>
+                  </div>
 
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
+                  <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <div className="mb-4">
+                      <h3 className="flex items-center gap-2 text-lg font-semibold">
                         <Eye className="h-5 w-5" />
                         ดูเว็บไซต์
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-3">
+                      </h3>
+                    </div>
+                    <div className="space-y-3">
                       <Link href="/">
-                        <Button variant="outline" className="w-full justify-start bg-transparent">
+                        <div className="w-full flex items-center justify-start p-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
                           หน้าแรก
-                        </Button>
+                        </div>
                       </Link>
                       <Link href="/student-works">
-                        <Button variant="outline" className="w-full justify-start bg-transparent">
+                        <div className="w-full flex items-center justify-start p-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
                           ผลงานนักศึกษา
-                        </Button>
+                        </div>
                       </Link>
                       <Link href="/faculty">
-                        <Button variant="outline" className="w-full justify-start bg-transparent">
+                        <div className="w-full flex items-center justify-start p-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
                           อาจารย์
-                        </Button>
+                        </div>
                       </Link>
                       <Link href="/publications">
-                        <Button variant="outline" className="w-full justify-start bg-transparent">
+                        <div className="w-full flex items-center justify-start p-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
                           ผลงานวิจัย
-                        </Button>
+                        </div>
                       </Link>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Recent Content */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>ผลงานนักศึกษาล่าสุด</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-3">
-                        {recentStudentWorks.slice(0, 5).map((work) => (
-                          <div key={work.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                            <div>
+                  <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <div className="mb-4">
+                      <h3 className="text-lg font-semibold">ผลงานนักศึกษาล่าสุด</h3>
+                    </div>
+                    <div className="space-y-3">
+                      {recentStudentWorks && recentStudentWorks.length > 0 ? (
+                        recentStudentWorks.slice(0, 5).map((work) => (
+                          <div key={work.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border">
+                            <div className="flex-1">
                               <h4 className="font-medium text-sm line-clamp-1">{work.title}</h4>
-                              <p className="text-xs text-muted-foreground">
-                                {new Date(work.created_at).toLocaleDateString("th-TH")}
+                              <p className="text-xs text-gray-600">
+                                {work.created_at 
+                                  ? new Date(work.created_at).toLocaleDateString("th-TH")
+                                  : 'เมื่อเร็วๆ นี้'
+                                }
                               </p>
                             </div>
-                            <Badge variant="secondary">{work.category}</Badge>
+                            <div className="ml-3">
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                {work.category}
+                              </span>
+                            </div>
                           </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
+                        ))
+                      ) : (
+                        <div className="text-center text-gray-500 py-4">
+                          ไม่มีผลงานนักศึกษา
+                        </div>
+                      )}
+                    </div>
+                  </div>
 
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>ผลงานวิจัยล่าสุด</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-3">
-                        {recentPublications.slice(0, 5).map((publication) => (
+                  <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <div className="mb-4">
+                      <h3 className="text-lg font-semibold">ผลงานวิจัยล่าสุด</h3>
+                    </div>
+                    <div className="space-y-3">
+                      {recentPublications && recentPublications.length > 0 ? (
+                        recentPublications.slice(0, 5).map((publication) => (
                           <div
                             key={publication.id}
-                            className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                            className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border"
                           >
-                            <div>
+                            <div className="flex-1">
                               <h4 className="font-medium text-sm line-clamp-1">{publication.title}</h4>
-                              <p className="text-xs text-muted-foreground">
-                                {publication.publication_date &&
-                                  new Date(publication.publication_date).toLocaleDateString("th-TH")}
+                              <p className="text-xs text-gray-600">
+                                {publication.publication_date
+                                  ? new Date(publication.publication_date).toLocaleDateString("th-TH")
+                                  : publication.created_at
+                                  ? new Date(publication.created_at).toLocaleDateString("th-TH")
+                                  : 'เมื่อเร็วๆ นี้'
+                                }
                               </p>
                             </div>
-                            <Badge variant="secondary">{publication.category}</Badge>
+                            <div className="ml-3">
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                {publication.category}
+                              </span>
+                            </div>
                           </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
+                        ))
+                      ) : (
+                        <div className="text-center text-gray-500 py-4">
+                          ไม่มีผลงานวิจัย
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </TabsContent>
 
