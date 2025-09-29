@@ -32,7 +32,7 @@ export function StudentWorksPreview({ works }: StudentWorksPreviewProps) {
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {works.slice(0, 3).map((work) => (
-            <Link key={work.id} href={`/student-works/${work.id}`}>
+            <Link key={work.id} href={`/student-works/${work.id}`} className="block h-full">
               <Card className="bg-white hover:shadow-lg transition-shadow cursor-pointer h-full">
                 <CardHeader className="p-0">
                   <img

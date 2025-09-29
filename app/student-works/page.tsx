@@ -47,7 +47,7 @@ export default async function StudentWorksPage() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {studentWorks?.map((work) => (
-              <Link key={work.id} href={`/student-works/${work.id}`}>
+              <Link key={work.id} href={`/student-works/${work.id}`} className="block h-full">
                 <Card className="hover:shadow-lg transition-shadow cursor-pointer h-full">
                   <CardHeader className="p-0">
                     <img
@@ -70,7 +70,7 @@ export default async function StudentWorksPage() {
                         {work.keywords
                           .split(",")
                           .slice(0, 3)
-                          .map((keyword, index) => (
+                          .map((keyword: string, index: number) => (
                             <Badge key={index} variant="outline" className="text-xs">
                               {keyword.trim()}
                             </Badge>

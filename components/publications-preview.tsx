@@ -70,40 +70,40 @@ export function PublicationsPreview({ publications }: PublicationsPreviewProps) 
         {/* Recent Publications */}
         <div className="grid md:grid-cols-2 gap-6">
           {publications.slice(0, 4).map((publication) => (
-            <Card key={publication.id} className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle className="text-lg text-balance">
-                  <Link href={`/publications/${publication.id}`} className="hover:text-red-600">
+            <Link key={publication.id} href={`/publications/${publication.id}`} className="block">
+              <Card className="hover:shadow-lg transition-shadow cursor-pointer h-full">
+                <CardHeader>
+                  <CardTitle className="text-lg text-balance hover:text-red-600">
                     {publication.title}
-                  </Link>
-                </CardTitle>
-                <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-                  {publication.publication_date && (
-                    <div className="flex items-center gap-1">
-                      <Calendar className="h-3 w-3" />
-                      <span>{new Date(publication.publication_date).getFullYear()}</span>
-                    </div>
-                  )}
-                  {publication.authors && publication.authors.length > 0 && (
-                    <div className="flex items-center gap-1">
-                      <Users className="h-3 w-3" />
-                      <span>{publication.authors[0]}</span>
-                      {publication.authors.length > 1 && <span> และคณะ</span>}
-                    </div>
-                  )}
-                  {publication.category && (
-                    <Badge variant="secondary" className="text-xs">
-                      {publication.category}
-                    </Badge>
-                  )}
-                </div>
-              </CardHeader>
-              {publication.abstract && (
-                <CardContent>
-                  <p className="text-sm text-muted-foreground line-clamp-3">{publication.abstract}</p>
-                </CardContent>
-              )}
-            </Card>
+                  </CardTitle>
+                  <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+                    {publication.publication_date && (
+                      <div className="flex items-center gap-1">
+                        <Calendar className="h-3 w-3" />
+                        <span>{new Date(publication.publication_date).getFullYear()}</span>
+                      </div>
+                    )}
+                    {publication.authors && publication.authors.length > 0 && (
+                      <div className="flex items-center gap-1">
+                        <Users className="h-3 w-3" />
+                        <span>{publication.authors[0]}</span>
+                        {publication.authors.length > 1 && <span> และคณะ</span>}
+                      </div>
+                    )}
+                    {publication.category && (
+                      <Badge variant="secondary" className="text-xs">
+                        {publication.category}
+                      </Badge>
+                    )}
+                  </div>
+                </CardHeader>
+                {publication.abstract && (
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground line-clamp-3">{publication.abstract}</p>
+                  </CardContent>
+                )}
+              </Card>
+            </Link>
           ))}
         </div>
       </div>

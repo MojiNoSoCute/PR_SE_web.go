@@ -8,11 +8,11 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 
 interface PublicationDetailPageProps {
-  params: Promise<{ id: string }>
+  params: { id: string }
 }
 
 export default async function PublicationDetailPage({ params }: PublicationDetailPageProps) {
-  const { id } = await params
+  const { id } = params
   const supabase = await createClient()
 
   const { data: publication } = await supabase.from("publications").select("*").eq("id", id).single()
@@ -83,7 +83,7 @@ export default async function PublicationDetailPage({ params }: PublicationDetai
                       <span className="font-semibold">ผู้เขียน:</span>
                     </div>
                     <div className="flex flex-wrap gap-3">
-                      {publication.authors.map((author, index) => {
+                      {publication.authors.map((author: string, index: number) => {
                         const authorProfile = authorProfiles?.find((profile) => profile.name_thai === author)
                         return authorProfile ? (
                           <Link key={index} href={`/faculty/${authorProfile.id}`}>
@@ -133,7 +133,7 @@ export default async function PublicationDetailPage({ params }: PublicationDetai
                 <div>
                   <h3 className="text-lg font-semibold mb-3">คำสำคัญ</h3>
                   <div className="flex flex-wrap gap-2">
-                    {publication.keywords.split(",").map((keyword, index) => (
+                    {publication.keywords.split(",").map((keyword: string, index: number) => (
                       <Badge key={index} variant="outline">
                         {keyword.trim()}
                       </Badge>

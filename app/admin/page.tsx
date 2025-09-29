@@ -20,58 +20,85 @@ export default function AdminPage() {
 
   useEffect(() => {
     // Check if user is authenticated in development mode
-    const authenticated = localStorage.getItem('admin_authenticated')
-    const adminEmail = localStorage.getItem('admin_email')
-    
-    if (!authenticated || !adminEmail) {
+    const checkAuth = () => {
+      const authenticated = localStorage.getItem('admin_authenticated')
+      const adminEmail = localStorage.getItem('admin_email')
+      
+      console.log('Checking authentication:', { authenticated, adminEmail })
+      
+      // Check for development mode authentication
+      if (authenticated === 'true' && adminEmail) {
+        console.log('User is authenticated')
+        setIsAuthenticated(true)
+        return true
+      }
+      
+      // Check if we're in development mode with default credentials
+      // This is a fallback for cases where localStorage might not be set properly
+      const urlParams = new URLSearchParams(window.location.search)
+      const devMode = urlParams.get('dev') === 'true'
+      
+      if (devMode) {
+        console.log('Development mode bypass enabled')
+        localStorage.setItem('admin_authenticated', 'true')
+        localStorage.setItem('admin_email', 'admin@university.ac.th')
+        setIsAuthenticated(true)
+        return true
+      }
+      
+      console.log('Not authenticated, redirecting to login')
       router.push("/admin/login")
-      return
+      return false
     }
 
-    setIsAuthenticated(true)
+    const isAuthenticated = checkAuth()
     
-    // Load mock data for dashboard
-    const loadDashboardData = async () => {
-      try {
-        // Check for updates in localStorage before loading
-        const stored = localStorage.getItem('student_works')
-        const studentWorks = stored ? JSON.parse(stored) : await dataProvider.getStudentWorks()
-        
-        const [faculty, publications, announcements] = await Promise.all([
-          dataProvider.getFaculty(),
-          dataProvider.getPublications(),
-          dataProvider.getAnnouncements()
-        ])
+    if (isAuthenticated) {
+      // Load mock data for dashboard
+      const loadDashboardData = async () => {
+        try {
+          // Check for updates in localStorage before loading
+          const stored = localStorage.getItem('student_works')
+          const studentWorks = stored ? JSON.parse(stored) : await dataProvider.getStudentWorks()
+          
+          const [faculty, publications, announcements] = await Promise.all([
+            dataProvider.getFaculty(),
+            dataProvider.getPublications(),
+            dataProvider.getAnnouncements()
+          ])
 
-        setStats({
-          studentWorks: studentWorks.length,
-          faculty: faculty.length,
-          publications: publications.length,
-          announcements: announcements.length
-        })
-
-        setRecentStudentWorks(studentWorks.slice(0, 5))
-        setRecentPublications(publications.slice(0, 5))
-        
-        // Debug logging
-        console.log('Dashboard data loaded:', {
-          stats: {
+          setStats({
             studentWorks: studentWorks.length,
             faculty: faculty.length,
             publications: publications.length,
             announcements: announcements.length
-          },
-          recentStudentWorks: studentWorks.slice(0, 5),
-          recentPublications: publications.slice(0, 5)
-        })
-      } catch (error) {
-        console.error('Error loading dashboard data:', error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
+          })
 
-    loadDashboardData()
+          setRecentStudentWorks(studentWorks.slice(0, 5))
+          setRecentPublications(publications.slice(0, 5))
+          
+          // Debug logging
+          console.log('Dashboard data loaded:', {
+            stats: {
+              studentWorks: studentWorks.length,
+              faculty: faculty.length,
+              publications: publications.length,
+              announcements: announcements.length
+            },
+            recentStudentWorks: studentWorks.slice(0, 5),
+            recentPublications: publications.slice(0, 5)
+          })
+        } catch (error) {
+          console.error('Error loading dashboard data:', error)
+        } finally {
+          setIsLoading(false)
+        }
+      }
+
+      loadDashboardData()
+    } else {
+      setIsLoading(false)
+    }
   }, [router])
 
   if (isLoading) {

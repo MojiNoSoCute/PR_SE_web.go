@@ -5,14 +5,25 @@ import { createClient } from "@/lib/supabase/server"
 import { Mail, Phone } from "lucide-react"
 import Link from "next/link"
 
+interface FacultyMember {
+  id: string
+  name_thai: string
+  name_english: string | null
+  position: string
+  image_url: string | null
+  bio: string | null
+  email: string | null
+  phone: string | null
+}
+
 export default async function FacultyPage() {
   const supabase = await createClient()
 
   const { data: faculty } = await supabase.from("faculty").select("*").order("position", { ascending: true })
 
   // Group faculty by position
-  const groupedFaculty = faculty?.reduce(
-    (acc, member) => {
+  const groupedFaculty: Record<string, FacultyMember[]> = faculty?.reduce(
+    (acc: Record<string, FacultyMember[]>, member: FacultyMember) => {
       const position = member.position || "อาจารย์"
       if (!acc[position]) {
         acc[position] = []
@@ -20,8 +31,8 @@ export default async function FacultyPage() {
       acc[position].push(member)
       return acc
     },
-    {} as Record<string, typeof faculty>,
-  )
+    {} as Record<string, FacultyMember[]>,
+  ) || {}
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -38,55 +49,54 @@ export default async function FacultyPage() {
       {/* Faculty Directory */}
       <section className="py-12">
         <div className="container mx-auto px-4">
-          {groupedFaculty &&
-            Object.entries(groupedFaculty).map(([position, members]) => (
-              <div key={position} className="mb-12">
-                <h2 className="text-2xl font-bold mb-6 text-red-700">{position}</h2>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {members.map((member) => (
-                    <Link key={member.id} href={`/faculty/${member.id}`}>
-                      <Card className="hover:shadow-lg transition-shadow cursor-pointer h-full">
-                        <CardContent className="p-6">
-                          <div className="flex flex-col items-center text-center">
-                            <div className="w-32 h-32 mb-4 rounded-full overflow-hidden bg-gray-200">
-                              <img
-                                src={member.image_url || "/placeholder.svg?height=128&width=128&query=faculty member"}
-                                alt={member.name_thai}
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-                            <h3 className="font-bold text-lg mb-2 text-balance">{member.name_thai}</h3>
-                            {member.name_english && (
-                              <p className="text-sm text-muted-foreground mb-3">{member.name_english}</p>
-                            )}
-                            <Badge variant="secondary" className="mb-4">
-                              {member.position}
-                            </Badge>
-                            {member.bio && (
-                              <p className="text-sm text-muted-foreground line-clamp-3 mb-4">{member.bio}</p>
-                            )}
-                            <div className="space-y-2 text-sm">
-                              {member.email && (
-                                <div className="flex items-center gap-2 text-muted-foreground">
-                                  <Mail className="h-4 w-4" />
-                                  <span className="truncate">{member.email}</span>
-                                </div>
-                              )}
-                              {member.phone && (
-                                <div className="flex items-center gap-2 text-muted-foreground">
-                                  <Phone className="h-4 w-4" />
-                                  <span>{member.phone}</span>
-                                </div>
-                              )}
-                            </div>
+          {Object.entries(groupedFaculty).map(([position, members]) => (
+            <div key={position} className="mb-12">
+              <h2 className="text-2xl font-bold mb-6 text-red-700">{position}</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {members.map((member: FacultyMember) => (
+                  <Link key={member.id} href={`/faculty/${member.id}`} className="block h-full">
+                    <Card className="hover:shadow-lg transition-shadow cursor-pointer h-full">
+                      <CardContent className="p-6">
+                        <div className="flex flex-col items-center text-center">
+                          <div className="w-32 h-32 mb-4 rounded-full overflow-hidden bg-gray-200">
+                            <img
+                              src={member.image_url || "/placeholder.svg?height=128&width=128&query=faculty member"}
+                              alt={member.name_thai}
+                              className="w-full h-full object-cover"
+                            />
                           </div>
-                        </CardContent>
-                      </Card>
-                    </Link>
-                  ))}
-                </div>
+                          <h3 className="font-bold text-lg mb-2 text-balance">{member.name_thai}</h3>
+                          {member.name_english && (
+                            <p className="text-sm text-muted-foreground mb-3">{member.name_english}</p>
+                          )}
+                          <Badge variant="secondary" className="mb-4">
+                            {member.position}
+                          </Badge>
+                          {member.bio && (
+                            <p className="text-sm text-muted-foreground line-clamp-3 mb-4">{member.bio}</p>
+                          )}
+                          <div className="space-y-2 text-sm">
+                            {member.email && (
+                              <div className="flex items-center gap-2 text-muted-foreground">
+                                <Mail className="h-4 w-4" />
+                                <span className="truncate">{member.email}</span>
+                              </div>
+                            )}
+                            {member.phone && (
+                              <div className="flex items-center gap-2 text-muted-foreground">
+                                <Phone className="h-4 w-4" />
+                                <span>{member.phone}</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
               </div>
-            ))}
+            </div>
+          ))}
         </div>
       </section>
 

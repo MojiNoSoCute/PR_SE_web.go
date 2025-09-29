@@ -8,11 +8,11 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 
 interface StudentWorkDetailPageProps {
-  params: Promise<{ id: string }>
+  params: { id: string }
 }
 
 export default async function StudentWorkDetailPage({ params }: StudentWorkDetailPageProps) {
-  const { id } = await params
+  const { id } = params
   const supabase = await createClient()
 
   const { data: work } = await supabase.from("student_works").select("*").eq("id", id).single()
@@ -103,7 +103,7 @@ export default async function StudentWorkDetailPage({ params }: StudentWorkDetai
                   <div className="mb-8">
                     <h3 className="text-lg font-semibold mb-3">คำสำคัญ</h3>
                     <div className="flex flex-wrap gap-2">
-                      {work.keywords.split(",").map((keyword, index) => (
+                      {work.keywords.split(",").map((keyword: string, index: number) => (
                         <Badge key={index} variant="outline">
                           {keyword.trim()}
                         </Badge>

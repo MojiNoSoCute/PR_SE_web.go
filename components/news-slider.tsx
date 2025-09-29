@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight, Calendar, Clock } from "lucide-react"
+import Link from "next/link"
 
 interface Announcement {
   id: string
   title: string
   content: string
-  created_at: string
+  published_at: string
   image_url?: string
 }
 
@@ -73,15 +74,22 @@ export function NewsSlider({ announcements }: NewsSliderProps) {
                     <div className="md:w-2/3 p-8">
                       <div className="flex items-center text-sm text-red-600 mb-4">
                         <Calendar className="w-4 h-4 mr-2" />
-                        <span>{formatDate(announcement.created_at)}</span>
+                        <span>{formatDate(announcement.published_at)}</span>
                         <Clock className="w-4 h-4 ml-4 mr-2" />
                         <span>ข่าวประชาสัมพันธ์</span>
                       </div>
                       <h3 className="text-2xl font-bold text-gray-800 mb-4 line-clamp-2">{announcement.title}</h3>
                       <p className="text-gray-600 leading-relaxed line-clamp-4">{announcement.content}</p>
-                      <button className="mt-6 bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors duration-200">
-                        อ่านเพิ่มเติม
-                      </button>
+                      <div className="mt-6 flex items-center">
+                        <span className="text-sm text-red-600 mr-4">
+                          {formatDate(announcement.published_at)}
+                        </span>
+                        <Link href="/">
+                          <button className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors duration-200">
+                            อ่านเพิ่มเติม
+                          </button>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>

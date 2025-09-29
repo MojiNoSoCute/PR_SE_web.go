@@ -27,7 +27,7 @@ export function FacultyPreview({ faculty }: FacultyPreviewProps) {
         </div>
         <div className="grid md:grid-cols-5 gap-6">
           {faculty.slice(0, 5).map((member) => (
-            <Link key={member.id} href={`/faculty/${member.id}`}>
+            <Link key={member.id} href={`/faculty/${member.id}`} className="block">
               <div className="text-center hover:transform hover:scale-105 transition-transform cursor-pointer">
                 <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200">
                   <img

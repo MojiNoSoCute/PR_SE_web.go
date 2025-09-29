@@ -38,6 +38,24 @@ const sampleData = {
       image_url: '/placeholder.svg?height=200&width=200',
       bio: 'ผู้เชี่ยวชาญด้านเครือข่ายและความปลอดภัยข้อมูล',
       email: 'boonpon@university.ac.th'
+    },
+    {
+      id: '4',
+      name_thai: 'ผศ.สมเกียรติ ช่วยเหลือ',
+      name_english: 'Assoc. Prof. Somkiat Chuayluea',
+      position: 'Associate Professor',
+      image_url: '/placeholder.svg?height=200&width=200',
+      bio: 'ผู้เชี่ยวชาญด้านการพัฒนาเว็บแอปพลิเคชัน',
+      email: 'somkiat@university.ac.th'
+    },
+    {
+      id: '5',
+      name_thai: 'อาจารย์ ดร.สุพิชญา จันทร์เรือง',
+      name_english: 'Dr. Supichaya Chanruang',
+      position: 'Lecturer',
+      image_url: '/placeholder.svg?height=200&width=200',
+      bio: 'ผู้เชี่ยวชาญด้านการวิเคราะห์ข้อมูลและ Data Science',
+      email: 'supichaya@university.ac.th'
     }
   ],
 
@@ -71,31 +89,53 @@ const sampleData = {
       keywords: 'Computer Vision, Quality Control, Python, OpenCV',
       read_time: 6,
       created_at: '2024-08-05T09:15:00Z'
+    },
+    {
+      id: '4',
+      title: 'เว็บแอปพลิเคชันจัดการร้านอาหาร',
+      description: 'ระบบจัดการร้านอาหารออนไลน์ครบวงจร รองรับการสั่งอาหาร การชำระเงิน และการจัดส่ง',
+      image_url: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=400&fit=crop',
+      category: 'โครงงาน',
+      keywords: 'Web Application, E-commerce, Next.js, PostgreSQL',
+      read_time: 4,
+      created_at: '2024-07-20T11:45:00Z'
     }
   ],
 
   publications: [
     {
       id: '1',
-      title: 'Enhancing Line Chatbot Experiences: Utilizing Thai Question-Answering Systems',
-      abstract: 'การพัฒนาระบบตอบคำถามภาษาไทยสำหรับ Line Chatbot เพื่อเพิ่มประสิทธิภาพในการสนทนา',
-      authors: ['อ.ดร.วรเชษฐ์ อุกรา'],
+      title: 'Enhancing Line Chatbot Experiences: Utilizing Thai Question-Answering Systems to Enrich Dialogue with Unpredictable Questions',
+      abstract: 'การพัฒนาระบบตอบคำถามภาษาไทยสำหรับ Line Chatbot เพื่อเพิ่มประสิทธิภาพในการสนทนา โดยใช้เทคโนโลยี Natural Language Processing และ Machine Learning',
+      authors: ['อ.ดร.วรเชษฐ์ อุกรา', 'นายสมชาย ใจดี'],
       journal: 'วารสาร Interdisciplinary Research Review',
       publication_date: '2024-05-23',
-      keywords: 'Chatbot, Thai Language, NLP',
-      category: 'Computer Science',
-      created_at: '2024-05-23T10:00:00Z'
+      keywords: 'Chatbot, Thai Language, NLP, Machine Learning',
+      category: 'Computer Science'
     },
     {
       id: '2',
-      title: 'Design Patterns to Enhance Security by Storing Passwords Encryption',
-      abstract: 'การออกแบบรูปแบบการเข้ารหัสรหัสผ่านด้วยฟังก์ชันแฮชหลายชั้น',
-      authors: ['นายลิขิต อรรฆสมิทธิ์', 'นายสมเกียรติ ช่วยเหลือ'],
+      title: 'Design Patterns to Enhance Security by Storing Passwords Encryption using Multiple Hashing Functions',
+      abstract: 'การออกแบบรูปแบบการเข้ารหัสรหัสผ่านด้วยฟังก์ชันแฮชหลายชั้นเพื่อเพิ่มความปลอดภัย',
+      authors: [
+        'นายลิขิต อรรฆสมิทธิ์',
+        'นายสมเกียรติ ช่วยเหลือ',
+        'ดร.วรเชษฐ์ อุกรา'
+      ],
       journal: 'KKU Science Journal',
       publication_date: '2024-05-23',
-      keywords: 'Security, Encryption, Hashing',
-      category: 'Information Security',
-      created_at: '2024-05-23T14:30:00Z'
+      keywords: 'Security, Encryption, Hashing, Password Protection',
+      category: 'Information Security'
+    },
+    {
+      id: '3',
+      title: 'Implementation of Blockchain Technology in Educational Certificate Verification',
+      abstract: 'การประยุกต์ใช้เทคโนโลยี Blockchain ในการตรวจสอบประกาศนียบัตรทางการศึกษา',
+      authors: ['ผศ.ดร.อุมนิษฐ์ ภักดีตระกูลวงศ์', 'นางสาวสุดา เก่งเรียน'],
+      journal: 'Thai Journal of Computer Science',
+      publication_date: '2024-03-15',
+      keywords: 'Blockchain, Education, Certificate Verification, Smart Contracts',
+      category: 'Blockchain Technology'
     }
   ],
 
@@ -103,7 +143,7 @@ const sampleData = {
     {
       id: '1',
       title: 'สถานที่สำหรับการเรียนการสอน อาคาร A4 ห้องปฏิบัติการคอมพิวเตอร์',
-      content: 'ห้องปฏิบัติการคอมพิวเตอร์ใหม่ อาคาร A4 ชั้น 3 พร้อมให้บริการสำหรับการเรียนการสอน',
+      content: 'ห้องปฏิบัติการคอมพิวเตอร์ใหม่ อาคาร A4 ชั้น 3 พร้อมให้บริการสำหรับการเรียนการสอน ประกอบด้วยคอมพิวเตอร์ทันสมัย จอแสดงผล 4K และซอฟต์แวร์สำหรับการพัฒนา',
       image_url: 'https://images.unsplash.com/photo-1562774053-701939374585?w=800&h=400&fit=crop',
       category: 'สถานที่',
       is_featured: true,
@@ -111,12 +151,30 @@ const sampleData = {
     },
     {
       id: '2',
-      title: 'นักศึกษาดีเด่น นาย ปราโมทย์ อัศวรรณ',
-      content: 'ขอแสดงความยินดีกับ นาย ปราโมทย์ อัศวรรณ ที่ได้รับรางวัลชนะเลิศการแข่งขัน Code Combat',
+      title: 'นักศึกษาดีเด่น นาย ปราโมทย์ อัศวรรณ ผู้เข้าร่วมการประกวด Code Combat 2024',
+      content: 'ขอแสดงความยินดีกับ นาย ปราโมทย์ อัศวรรณ นักศึกษาชั้นปีที่ 3 สาขาวิศวกรรมซอฟต์แวร์ ที่ได้รับรางวัลชนะเลิศอันดับ 1 ในการแข่งขัน Code Combat ระดับชาติ',
       image_url: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&h=400&fit=crop',
       category: 'นักศึกษาดีเด่น',
       is_featured: false,
       published_at: '2024-08-15'
+    },
+    {
+      id: '3',
+      title: 'กิจกรรมเตรียมความพร้อม สาขาวิศวกรรมซอฟต์แวร์ ปีการศึกษา 2567',
+      content: 'กิจกรรมเตรียมความพร้อมสำหรับนักศึกษาใหม่ ประจำปีการศึกษา 2567 จัดขึ้นระหว่างวันที่ 15-17 มิถุนายน 2567 ณ หอประชุมมหาวิทยาลัย',
+      image_url: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=400&fit=crop',
+      category: 'กิจกรรม',
+      is_featured: false,
+      published_at: '2024-06-01'
+    },
+    {
+      id: '4',
+      title: 'เปิดรับสมัครทุนการศึกษาสำหรับนักศึกษาดีเด่น ประจำปี 2567',
+      content: 'เปิดรับสมัครทุนการศึกษาสำหรับนักศึกษาที่มีผลการเรียนดีเยี่ยม ทุนละ 20,000 บาท จำนวน 5 ทุน สมัครได้ถึงวันที่ 30 กรกฎาคม 2567',
+      image_url: 'https://images.unsplash.com/photo-1627556704271-7c0cb0ee7df9?w=800&h=400&fit=crop',
+      category: 'ทุนการศึกษา',
+      is_featured: true,
+      published_at: '2024-07-01'
     }
   ]
 }
@@ -190,7 +248,16 @@ export const dataProvider = {
       }
     }
     
-    return limit ? sampleData.studentWorks.slice(0, limit) : sampleData.studentWorks
+    // Add created_at field to sample data if missing
+    const worksWithDates = sampleData.studentWorks.map(work => ({
+      ...work,
+      created_at: work.created_at || new Date().toISOString()
+    }))
+    
+    // Sort by created_at descending
+    worksWithDates.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+    
+    return limit ? worksWithDates.slice(0, limit) : worksWithDates
   },
 
   async getPublications(limit?: number) {
@@ -214,7 +281,16 @@ export const dataProvider = {
       }
     }
     
-    return limit ? sampleData.publications.slice(0, limit) : sampleData.publications
+    // Add publication_date field to sample data if missing
+    const publicationsWithDates = sampleData.publications.map(pub => ({
+      ...pub,
+      publication_date: pub.publication_date || new Date().toISOString()
+    }))
+    
+    // Sort by publication_date descending
+    publicationsWithDates.sort((a, b) => new Date(b.publication_date).getTime() - new Date(a.publication_date).getTime())
+    
+    return limit ? publicationsWithDates.slice(0, limit) : publicationsWithDates
   },
 
   async getAnnouncements(limit?: number, featured?: boolean) {
@@ -246,6 +322,16 @@ export const dataProvider = {
     if (featured !== undefined) {
       data = data.filter(item => item.is_featured === featured)
     }
-    return limit ? data.slice(0, limit) : data
+    
+    // Add published_at field to sample data if missing
+    const announcementsWithDates = data.map(announcement => ({
+      ...announcement,
+      published_at: announcement.published_at || new Date().toISOString()
+    }))
+    
+    // Sort by published_at descending
+    announcementsWithDates.sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime())
+    
+    return limit ? announcementsWithDates.slice(0, limit) : announcementsWithDates
   }
 }

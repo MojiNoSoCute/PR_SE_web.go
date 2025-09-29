@@ -8,11 +8,11 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 
 interface FacultyDetailPageProps {
-  params: Promise<{ id: string }>
+  params: { id: string }
 }
 
 export default async function FacultyDetailPage({ params }: FacultyDetailPageProps) {
-  const { id } = await params
+  const { id } = params
   const supabase = await createClient()
 
   const { data: faculty } = await supabase.from("faculty").select("*").eq("id", id).single()
