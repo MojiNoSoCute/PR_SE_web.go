@@ -84,7 +84,7 @@ export function NewsSlider({ announcements }: NewsSliderProps) {
                         <span className="text-sm text-red-600 mr-4">
                           {formatDate(announcement.published_at)}
                         </span>
-                        <Link href="/">
+                        <Link href={`/announcements/${announcement.id}`}>
                           <button className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors duration-200">
                             อ่านเพิ่มเติม
                           </button>

@@ -111,7 +111,9 @@ const sampleData = {
       journal: 'วารสาร Interdisciplinary Research Review',
       publication_date: '2024-05-23',
       keywords: 'Chatbot, Thai Language, NLP, Machine Learning',
-      category: 'Computer Science'
+      category: 'Computer Science',
+      doi: '10.1234/ircr.2024.001',
+      pdf_url: 'https://example.com/paper1.pdf'
     },
     {
       id: '2',
@@ -125,7 +127,9 @@ const sampleData = {
       journal: 'KKU Science Journal',
       publication_date: '2024-05-23',
       keywords: 'Security, Encryption, Hashing, Password Protection',
-      category: 'Information Security'
+      category: 'Information Security',
+      doi: '10.1234/kkusc.2024.002',
+      pdf_url: 'https://example.com/paper2.pdf'
     },
     {
       id: '3',
@@ -135,7 +139,9 @@ const sampleData = {
       journal: 'Thai Journal of Computer Science',
       publication_date: '2024-03-15',
       keywords: 'Blockchain, Education, Certificate Verification, Smart Contracts',
-      category: 'Blockchain Technology'
+      category: 'Blockchain Technology',
+      doi: '10.1234/tjcs.2024.003',
+      pdf_url: 'https://example.com/paper3.pdf'
     }
   ],
 
@@ -225,6 +231,46 @@ export const dataProvider = {
     }
     
     return limit ? sampleData.faculty.slice(0, limit) : sampleData.faculty
+  },
+
+  async getFacultyById(id: string) {
+    if (hasValidSupabase()) {
+      try {
+        const supabase = createClient()
+        const { data, error } = await supabase.from('faculty').select('*').eq('id', id).single()
+        
+        if (error) throw error
+        return data
+      } catch (error) {
+        console.warn('Failed to fetch faculty by id from Supabase, using sample data')
+      }
+    }
+    
+    // Find faculty by id in sample data
+    return sampleData.faculty.find((faculty: any) => faculty.id === id)
+  },
+
+  async getPublicationsByAuthor(authorName: string) {
+    if (hasValidSupabase()) {
+      try {
+        const supabase = createClient()
+        const { data, error } = await supabase
+          .from('publications')
+          .select('*')
+          .contains('authors', [authorName])
+          .order('publication_date', { ascending: false })
+        
+        if (error) throw error
+        return data || []
+      } catch (error) {
+        console.warn('Failed to fetch publications by author from Supabase, using sample data')
+      }
+    }
+    
+    // Filter publications by author in sample data
+    return sampleData.publications.filter((pub: any) => 
+      pub.authors && pub.authors.includes(authorName)
+    )
   },
 
   async getStudentWorks(limit?: number) {

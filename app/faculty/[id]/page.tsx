@@ -2,10 +2,10 @@ import { Header } from "@/components/header"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { createClient } from "@/lib/supabase/server"
 import { ArrowLeft, Mail, Phone, GraduationCap, BookOpen } from "lucide-react"
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import { dataProvider } from "@/lib/data-provider"
 
 interface FacultyDetailPageProps {
   params: { id: string }
@@ -13,28 +13,20 @@ interface FacultyDetailPageProps {
 
 export default async function FacultyDetailPage({ params }: FacultyDetailPageProps) {
   const { id } = params
-  const supabase = await createClient()
 
-  const { data: faculty } = await supabase.from("faculty").select("*").eq("id", id).single()
-
+  // Use data provider instead of direct Supabase client
+  const faculty = await dataProvider.getFacultyById(id)
+  
   if (!faculty) {
     notFound()
   }
 
   // Get faculty publications
-  const { data: publications } = await supabase
-    .from("publications")
-    .select("*")
-    .contains("authors", [faculty.name_thai])
-    .order("publication_date", { ascending: false })
+  const publications = await dataProvider.getPublicationsByAuthor(faculty.name_thai)
 
-  // Get other faculty members from same department
-  const { data: colleagues } = await supabase
-    .from("faculty")
-    .select("*")
-    .eq("department", faculty.department)
-    .neq("id", id)
-    .limit(4)
+  // Get other faculty members (all except current)
+  const colleagues = await dataProvider.getFaculty(5) // Get 5 colleagues
+  const filteredColleagues = colleagues.filter((colleague: any) => colleague.id !== id).slice(0, 4)
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -92,7 +84,7 @@ export default async function FacultyDetailPage({ params }: FacultyDetailPagePro
                 <div className="md:col-span-2">
                   <h1 className="text-3xl font-bold mb-2 text-balance">{faculty.name_thai}</h1>
                   {faculty.name_english && <p className="text-xl text-muted-foreground mb-4">{faculty.name_english}</p>}
-                  <p className="text-lg text-red-600 mb-6">{faculty.department}</p>
+                  <p className="text-lg text-red-600 mb-6">สาขาวิชาวิศวกรรมซอฟต์แวร์</p>
 
                   {faculty.bio && (
                     <div className="mb-8">
@@ -150,7 +142,7 @@ export default async function FacultyDetailPage({ params }: FacultyDetailPagePro
               ผลงานวิจัยและบทความ
             </h2>
             <div className="space-y-4">
-              {publications.map((publication) => (
+              {publications.map((publication: any) => (
                 <Card key={publication.id}>
                   <CardHeader>
                     <CardTitle className="text-lg text-balance">{publication.title}</CardTitle>
@@ -175,12 +167,12 @@ export default async function FacultyDetailPage({ params }: FacultyDetailPagePro
       )}
 
       {/* Colleagues */}
-      {colleagues && colleagues.length > 0 && (
+      {filteredColleagues && filteredColleagues.length > 0 && (
         <section className="py-12 bg-gray-50">
           <div className="container mx-auto px-4 max-w-4xl">
             <h2 className="text-2xl font-bold mb-8 text-center">อาจารย์ท่านอื่นในภาควิชา</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {colleagues.map((colleague) => (
+              {filteredColleagues.map((colleague: any) => (
                 <Link key={colleague.id} href={`/faculty/${colleague.id}`}>
                   <Card className="hover:shadow-lg transition-shadow cursor-pointer text-center">
                     <CardContent className="p-4">
